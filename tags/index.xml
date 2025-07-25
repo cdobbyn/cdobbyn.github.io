@@ -6,6 +6,56 @@
     <description>Recent content in Tags on Dobbo</description>
     <generator>Hugo</generator>
     <language>en</language>
+    <lastBuildDate>Fri, 25 Jul 2025 10:33:39 -0700</lastBuildDate>
     <atom:link href="https://www.dobbo.ca/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Allocatable</title>
+      <link>https://www.dobbo.ca/tags/allocatable/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/tags/allocatable/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cgroup</title>
+      <link>https://www.dobbo.ca/tags/cgroup/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/tags/cgroup/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EKS</title>
+      <link>https://www.dobbo.ca/tags/eks/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/tags/eks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kube</title>
+      <link>https://www.dobbo.ca/tags/kube/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/tags/kube/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Node</title>
+      <link>https://www.dobbo.ca/tags/node/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/tags/node/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reserved</title>
+      <link>https://www.dobbo.ca/tags/reserved/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/tags/reserved/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>System</title>
+      <link>https://www.dobbo.ca/tags/system/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/tags/system/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

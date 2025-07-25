@@ -2,18 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://www.dobbo.ca/tags/allocatable/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
     <loc>https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/tags/cgroup/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/tags/eks/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/tags/kube/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/tags/node/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/posts/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/tags/reserved/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/tags/system/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
+  </url><url>
+    <loc>https://www.dobbo.ca/tags/</loc>
+    <lastmod>2025-07-25T10:33:39-07:00</lastmod>
   </url><url>
     <loc>https://www.dobbo.ca/authors/</loc>
   </url><url>
     <loc>https://www.dobbo.ca/categories/</loc>
   </url><url>
-    <loc>https://www.dobbo.ca/</loc>
-  </url><url>
-    <loc>https://www.dobbo.ca/posts/</loc>
-  </url><url>
     <loc>https://www.dobbo.ca/series/</loc>
-  </url><url>
-    <loc>https://www.dobbo.ca/tags/</loc>
   </url>
 </urlset>
