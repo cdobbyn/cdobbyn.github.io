@@ -1,14 +1,6 @@
 # About KeepIt
 
 
-{{< style "img { height: 1.25rem; }" >}}
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/dillonzq/KeepIt?style=flat-square)](https://github.com/Fastbyte01/KeepIt/releases)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.62.0-ff4088?style=flat-square&logo=hugo)](https://gohugo.io/)
-[![License](https://img.shields.io/github/license/dillonzq/KeepIt?style=flat-square)](https://github.com/Fastbyte01/KeepIt/blob/master/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/dillonzq/KeepIt?style=social)](https://github.com/Fastbyte01/KeepIt)
-[![GitHub forks](https://img.shields.io/github/forks/dillonzq/KeepIt?style=social)](https://github.com/Fastbyte01/KeepIt/fork)
-{{< /style >}}
-
 > [:(far fa-kiss-wink-heart fa-fw): KeepIt](https://github.com/Fastbyte01/KeepIt) is a **clean**, **elegant** but **advanced** blog theme for [Hugo](https://gohugo.io/) developed by [Dillon](https://dillonzq.com).
 >
 > It is based on the original [LeaveIt Theme](https://github.com/liuzc/LeaveIt) and [KeepIt Theme](https://github.com/Fastbyte01/KeepIt).
