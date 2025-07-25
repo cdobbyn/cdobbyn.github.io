@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  AWS EKS / Node Allocatable Settings · Dobbo
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Chris Dobbyn">
+<meta name="description" content="
+  Details
+  
+    
+    Link to heading
+  
+
+If you&rsquo;re looking at this page you&rsquo;ve likely discovered your node going into
+&ldquo;Unknown&rdquo; status due to a workload that you cannot put resource limits on for
+some reason. You are looking for a way to protect the kubelet process from being
+overrun by other workloads in the same cgroup.
+
+  Protect the Kubelet
+  
+    
+    Link to heading
+  
+
+
+  Using kubelet arguments
+  
+    
+    Link to heading
+  
+
+You can get this to work with minimal configuration but simply adding these two
+arguments. Under the hood the AWS EKS AMI is calculating the kube-reserved setting
+for you as part of it&rsquo;s bootstrap (link). The --kube-reserved-cgroup
+is required for this to work properly, this cgroup is created within the AWS EKS AMI.">
+<meta name="keywords" content="blog,developer,personal">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AWS EKS / Node Allocatable Settings">
+  <meta name="twitter:description" content="Details Link to heading If you’re looking at this page you’ve likely discovered your node going into “Unknown” status due to a workload that you cannot put resource limits on for some reason. You are looking for a way to protect the kubelet process from being overrun by other workloads in the same cgroup.
+Protect the Kubelet Link to heading Using kubelet arguments Link to heading You can get this to work with minimal configuration but simply adding these two arguments. Under the hood the AWS EKS AMI is calculating the kube-reserved setting for you as part of it’s bootstrap (link). The --kube-reserved-cgroup is required for this to work properly, this cgroup is created within the AWS EKS AMI.">
+
+<meta property="og:url" content="https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/">
+  <meta property="og:site_name" content="Dobbo">
+  <meta property="og:title" content="AWS EKS / Node Allocatable Settings">
+  <meta property="og:description" content="Details Link to heading If you’re looking at this page you’ve likely discovered your node going into “Unknown” status due to a workload that you cannot put resource limits on for some reason. You are looking for a way to protect the kubelet process from being overrun by other workloads in the same cgroup.
+Protect the Kubelet Link to heading Using kubelet arguments Link to heading You can get this to work with minimal configuration but simply adding these two arguments. Under the hood the AWS EKS AMI is calculating the kube-reserved setting for you as part of it’s bootstrap (link). The --kube-reserved-cgroup is required for this to work properly, this cgroup is created within the AWS EKS AMI.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-07-25T10:33:39-07:00">
+    <meta property="article:modified_time" content="2025-07-25T10:33:39-07:00">
+    <meta property="article:tag" content="EKS">
+    <meta property="article:tag" content="Kube">
+    <meta property="article:tag" content="Reserved">
+    <meta property="article:tag" content="System">
+    <meta property="article:tag" content="Cgroup">
+    <meta property="article:tag" content="Node">
+
+
+
+
+<link rel="canonical" href="https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6445a802b9389c9660e1b07b724dcf5718b1065ed2d71b4eeaf981cc7cc5fc46.css" integrity="sha256-ZEWoArk4nJZg4bB7ck3PVxixBl7S1xtO6vmBzHzF/EY=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="https://www.dobbo.ca/">
+      Dobbo
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/">
+              AWS EKS / Node Allocatable Settings
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-07-25T10:33:39-07:00">
+                July 25, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/eks/">EKS</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/kube/">Kube</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/reserved/">Reserved</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/system/">System</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/cgroup/">Cgroup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/node/">Node</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/allocatable/">Allocatable</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h2 id="details">
+  Details
+  <a class="heading-link" href="#details">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>If you&rsquo;re looking at this page you&rsquo;ve likely discovered your node going into
+&ldquo;Unknown&rdquo; status due to a workload that you cannot put resource limits on for
+some reason. You are looking for a way to protect the kubelet process from being
+overrun by other workloads in the same cgroup.</p>
+<h2 id="protect-the-kubelet">
+  Protect the Kubelet
+  <a class="heading-link" href="#protect-the-kubelet">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h3 id="using-kubelet-arguments">
+  Using kubelet arguments
+  <a class="heading-link" href="#using-kubelet-arguments">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>You can get this to work with minimal configuration but simply adding these two
+arguments. Under the hood the AWS EKS AMI is calculating the <code>kube-reserved</code> setting
+for you as part of it&rsquo;s bootstrap (<a href="https://github.com/awslabs/amazon-eks-ami/blob/6b1df1107d6e7ec2f46612ebb509c16101ded22d/files/bootstrap.sh#L452"  class="external-link" target="_blank" rel="noopener">link</a>). The <code>--kube-reserved-cgroup</code>
+is required for this to work properly, this cgroup is created within the AWS EKS AMI.</p>
+<ul>
+<li><code>--enforce-node-allocatable=pods,kube-reserved</code>
+<ul>
+<li>default: <code>--enforce-node-allocatable=pods</code></li>
+</ul>
+</li>
+<li><code>--kube-reserved-cgroup=/runtime</code>
+<ul>
+<li>default: undefined</li>
+</ul>
+</li>
+</ul>
+<p>Optionally you can add this in order to tweak your reservation, but use at your own risk.</p>
+<ul>
+<li><code>--kube-reserved=cpu=200m,memory=500Mi,ephemeral-storage=1Gi</code></li>
+</ul>
+<h3 id="using-kubelet-config">
+  Using kubelet config
+  <a class="heading-link" href="#using-kubelet-config">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The new way of configuring things is using a kubelet configuration file. I
+haven&rsquo;t had to do this yet, so I will leave this section as &ldquo;to-do&rdquo;. You can
+probably infer what to do based on the arguments above.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#7ee787">apiVersion</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">kubelet.config.k8s.io/v1beta1</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">kind</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">KubeletConfiguration</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">kubeReserved</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">cpu</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;200m&#34;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">memory</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;500Mi&#34;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">ephemeral-storage</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;1Gi&#34;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">kubeReservedCgroup</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;/runtime&#34;</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># Example cgroup path</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">enforceNodeAllocatable</span>:<span style="color:#6e7681"> </span>[<span style="color:#a5d6ff">&#34;pods&#34;</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;kube-reserved&#34;</span>]<span style="color:#6e7681">
+</span></span></span></code></pre></div><h3 id="testing">
+  Testing
+  <a class="heading-link" href="#testing">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>The best way to test is to make a EC2 with the userdata configuring things one
+of those ways. Then use EC2 connect to hop onto the box and run this to follow the logs
+for the kubelet. You should be able to see any problems related to your cgroup.</p>
+<pre tabindex="0"><code>sudo journalctl -u kubelet -f
+</code></pre><h2 id="protect-the-container-runtime">
+  Protect the Container Runtime
+  <a class="heading-link" href="#protect-the-container-runtime">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>There are also the following options in order to separate the container runtime process into
+its own cgroup. I have not found this to be useful to configure but if you do, you will need
+to create your own cgroup (note: aws eks ami uses cgroupv2).</p>
+<ul>
+<li><code>--enforce-node-allocatable=pods,kube-reserved,system-reserved</code></li>
+<li><code>--system-reserved-cgroup=/&lt;your_cgroup_name&gt;</code></li>
+<li><code>--system-reserved=cpu=200m,memory=500Mi,ephemeral-storage=2Gi</code></li>
+</ul>
+<h2 id="references">
+  References
+  <a class="heading-link" href="#references">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li><a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/"  class="external-link" target="_blank" rel="noopener">Kubernetes Reference Document</a></li>
+<li><a href="https://github.com/awslabs/amazon-eks-ami/blob/6b1df1107d6e7ec2f46612ebb509c16101ded22d/files/bootstrap.sh#L452"  class="external-link" target="_blank" rel="noopener">AWS EKS Bootstrap</a></li>
+</ul>
+<h2 id="feedback">
+  Feedback
+  <a class="heading-link" href="#feedback">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>While I do have a long history of experience with AWS EKS, my experience on this particular subject is limited.
+It&rsquo;s possible there are some inaccuracies or things that I have missed. If that&rsquo;s the case, please reach out.
+I don&rsquo;t make any guarantees that I will amend my blog, but I will consider changes.</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script>
+  window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "chris_dobbyn" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    
+    document.addEventListener('themeChanged', function (e) { 
+        if (document.readyState == 'complete') {
+          DISQUS.reset({ reload: true, config: disqus_config });
+        }
+    });
+</script>
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2002 -
+    
+    2025
+     Chris Dobbyn 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-89JH4ECXGL"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-89JH4ECXGL');
+        }
+      </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
