@@ -199,12 +199,19 @@
   </a>
 </h3>
 <p>You can achieve this with minimal configuration by simply adding the following two arguments:</p>
-<pre tabindex="0"><code>--enforce-node-allocatable=pods,kube-reserved
---kube-reserved-cgroup=/runtime
-</code></pre><p>The <code>--kube-reserved-cgroup</code> argument is necessary for this configuration to work correctly. The AWS EKS AMI creates the <code>/runtime</code> cgroup and it is available for use for this purpose.</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#7ee787">apiVersion</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">node.eks.aws/v1alpha1</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">kind</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">NodeConfig</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">spec</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">kubelet</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#7ee787">flags</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">      </span>- &gt;-<span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        --enforce-node-allocatable=pods,kube-reserved</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">      </span>- &gt;-<span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        --kube-reserved-cgroup=/runtime</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><p>The <code>--kube-reserved-cgroup</code> argument is necessary for this configuration to work correctly. The AWS EKS AMI creates the <code>/runtime</code> cgroup and it is available for use for this purpose.</p>
 <p>The AWS EKS AMI automatically calculates the <code>kube-reserved</code> setting for you during its bootstrap process. Optionally, you can add the following to adjust your reservation, but use this at your own risk:</p>
-<pre tabindex="0"><code>--kube-reserved=cpu=200m,memory=500Mi,ephemeral-storage=1Gi
-</code></pre><h3 id="using-kubelet-configuration">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>--kube-reserved<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">cpu</span><span style="color:#ff7b72;font-weight:bold">=</span>200m,memory<span style="color:#ff7b72;font-weight:bold">=</span>500Mi,ephemeral-storage<span style="color:#ff7b72;font-weight:bold">=</span>1Gi
+</span></span></code></pre></div><h3 id="using-kubelet-configuration">
   Using Kubelet Configuration
   <a class="heading-link" href="#using-kubelet-configuration">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
@@ -223,8 +230,8 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">enforceNodeAllocatable</span>:<span style="color:#6e7681"> </span>[<span style="color:#a5d6ff">&#34;pods&#34;</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;kube-reserved&#34;</span>]<span style="color:#6e7681">
 </span></span></span></code></pre></div><p><strong>Testing</strong></p>
 <p>The best way to test this setup is to create an EC2 instance with user data configured in one of the ways mentioned above. Then, use EC2 Connect to log in to the instance and run the following command to follow the logs for the kubelet. You should be able to identify any issues related to your cgroup:</p>
-<pre tabindex="0"><code>sudo journalctl -u kubelet -f
-</code></pre><h2 id="protecting-the-container-runtime">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo journalctl -u kubelet -f
+</span></span></code></pre></div><h2 id="protecting-the-container-runtime">
   Protecting the Container Runtime
   <a class="heading-link" href="#protecting-the-container-runtime">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
@@ -232,10 +239,10 @@
   </a>
 </h2>
 <p>Additionally, you have options to separate the container runtime process into its own cgroup. I have not found this configuration particularly helpful, but if you want to try it, you will need to create your cgroup (note: the AWS EKS AMI uses cgroupv2):</p>
-<pre tabindex="0"><code>--enforce-node-allocatable=pods,kube-reserved,system-reserved
---system-reserved-cgroup=/&lt;your_cgroup_name&gt;
---system-reserved=cpu=200m,memory=500Mi,ephemeral-storage=2Gi
-</code></pre><h2 id="feedback">
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>--enforce-node-allocatable<span style="color:#ff7b72;font-weight:bold">=</span>pods,kube-reserved,system-reserved
+</span></span><span style="display:flex;"><span>--system-reserved-cgroup<span style="color:#ff7b72;font-weight:bold">=</span>/&lt;your_cgroup_name&gt;
+</span></span><span style="display:flex;"><span>--system-reserved<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">cpu</span><span style="color:#ff7b72;font-weight:bold">=</span>200m,memory<span style="color:#ff7b72;font-weight:bold">=</span>500Mi,ephemeral-storage<span style="color:#ff7b72;font-weight:bold">=</span>2Gi
+</span></span></code></pre></div><h2 id="feedback">
   Feedback
   <a class="heading-link" href="#feedback">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
