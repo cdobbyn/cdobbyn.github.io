@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>EKS on Dobbo</title>
-    <link>https://www.dobbo.ca/tags/eks/</link>
+    <link>http://localhost:51695/tags/eks/</link>
     <description>Recent content in EKS on Dobbo</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Fri, 25 Jul 2025 10:33:39 -0700</lastBuildDate>
-    <atom:link href="https://www.dobbo.ca/tags/eks/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:51695/tags/eks/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AWS EKS / Node Allocatable Settings</title>
-      <link>https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/</link>
+      <link>http://localhost:51695/posts/aws/eks/node_allocatable_settings/</link>
       <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
-      <guid>https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/</guid>
+      <guid>http://localhost:51695/posts/aws/eks/node_allocatable_settings/</guid>
       <description>&lt;h2 id=&#34;details&#34;&gt;&#xA;  Details&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#details&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;If you’re viewing this page, you’ve likely found that your node is transitioning to “Unknown” status because you cannot apply resource limits to a workload for some reason. You may be seeking a way to protect the kubelet process from being overwhelmed by other workloads in the same cgroup.&lt;/p&gt;&#xA;&lt;h2 id=&#34;protecting-the-kubelet&#34;&gt;&#xA;  Protecting the Kubelet&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#protecting-the-kubelet&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;h3 id=&#34;using-kubelet-arguments&#34;&gt;&#xA;  Using Kubelet Arguments&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#using-kubelet-arguments&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;p&gt;You can achieve this with minimal configuration by simply adding the following two arguments:&lt;/p&gt;</description>
     </item>
   </channel>
