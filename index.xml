@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Dobbo&#39;s Blog</title>
+    <title>Dobbo</title>
     <link>https://www.dobbo.ca/</link>
-    <description>Recent content on Dobbo&#39;s Blog</description>
+    <description>Recent content on Dobbo</description>
     <generator>Hugo</generator>
     <language>en</language>
+    <lastBuildDate>Fri, 25 Jul 2025 10:33:39 -0700</lastBuildDate>
     <atom:link href="https://www.dobbo.ca/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS EKS / Node Allocatable Settings</title>
+      <link>https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/</link>
+      <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
+      <guid>https://www.dobbo.ca/posts/aws/eks/node_allocatable_settings/</guid>
+      <description>&lt;h2 id=&#34;details&#34;&gt;&#xA;  Details&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#details&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;If you&amp;rsquo;re looking at this page you&amp;rsquo;ve likely discovered your node going into&#xA;&amp;ldquo;Unknown&amp;rdquo; status due to a workload that you cannot put resource limits on for&#xA;some reason. You are looking for a way to protect the kubelet process from being&#xA;overrun by other workloads in the same cgroup.&lt;/p&gt;&#xA;&lt;h2 id=&#34;protect-the-kubelet&#34;&gt;&#xA;  Protect the Kubelet&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#protect-the-kubelet&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&#xA;&lt;h3 id=&#34;using-kubelet-arguments&#34;&gt;&#xA;  Using kubelet arguments&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#using-kubelet-arguments&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&#xA;&lt;p&gt;You can get this to work with minimal configuration but simply adding these two&#xA;arguments. Under the hood the AWS EKS AMI is calculating the &lt;code&gt;kube-reserved&lt;/code&gt; setting&#xA;for you as part of it&amp;rsquo;s bootstrap (&lt;a href=&#34;https://github.com/awslabs/amazon-eks-ami/blob/6b1df1107d6e7ec2f46612ebb509c16101ded22d/files/bootstrap.sh#L452&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;link&lt;/a&gt;). The &lt;code&gt;--kube-reserved-cgroup&lt;/code&gt;&#xA;is required for this to work properly, this cgroup is created within the AWS EKS AMI.&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
