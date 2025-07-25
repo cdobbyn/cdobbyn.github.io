@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Dobbo</title>
-    <link>http://localhost:51695/tags/</link>
+    <link>https://www.dobbo.ca/tags/</link>
     <description>Recent content in Tags on Dobbo</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Fri, 25 Jul 2025 10:33:39 -0700</lastBuildDate>
-    <atom:link href="http://localhost:51695/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.dobbo.ca/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cgroup</title>
-      <link>http://localhost:51695/tags/cgroup/</link>
+      <link>https://www.dobbo.ca/tags/cgroup/</link>
       <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
-      <guid>http://localhost:51695/tags/cgroup/</guid>
+      <guid>https://www.dobbo.ca/tags/cgroup/</guid>
       <description></description>
     </item>
     <item>
       <title>EKS</title>
-      <link>http://localhost:51695/tags/eks/</link>
+      <link>https://www.dobbo.ca/tags/eks/</link>
       <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
-      <guid>http://localhost:51695/tags/eks/</guid>
+      <guid>https://www.dobbo.ca/tags/eks/</guid>
       <description></description>
     </item>
     <item>
       <title>Kubelet</title>
-      <link>http://localhost:51695/tags/kubelet/</link>
+      <link>https://www.dobbo.ca/tags/kubelet/</link>
       <pubDate>Fri, 25 Jul 2025 10:33:39 -0700</pubDate>
-      <guid>http://localhost:51695/tags/kubelet/</guid>
+      <guid>https://www.dobbo.ca/tags/kubelet/</guid>
       <description></description>
     </item>
   </channel>
